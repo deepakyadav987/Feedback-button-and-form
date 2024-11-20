@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form</title>
+  <style> 
+
+    #feedbackForm {
+      background: #fff;
+      border: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>welcome to port 8000  </h1>
+  <div id="feedbackForm">
+    <form id="feedbackFormElement">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      
+      <label for="feedback">Feedback:</label>
+      <textarea id="feedback" name="feedback" placeholder="Your feedback..." rows="4" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+      // Function to notify the parent iframe when the form is closed
+      function closeFeedbackForm() {
+      window.parent.postMessage("closeIframe", "*");
+    }
+
+    // Handle form submission
+    document.getElementById("feedbackFormElement").addEventListener("submit", function (event) {
+      event.preventDefault();
+      alert("Thank you for your feedback!");
+      closeFeedbackForm();
+    });
+
+    // Display form if `showForm=true` in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("showForm") !== "true") {
+      document.getElementById("feedbackForm").style.display = "none";
+    }
+  </script>
+  
